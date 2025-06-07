@@ -13,7 +13,8 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         // Register custom middleware with aliases
         $middleware->alias([
-            'role.check' => \App\Http\Middleware\RoleCheckMiddleware::class,
+            'auth.chair' => \App\Http\Middleware\CheckChairMiddleware::class,
+            'auth.reviewer' => \App\Http\Middleware\CheckReviewerMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

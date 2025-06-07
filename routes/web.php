@@ -9,6 +9,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/chair', function () {
-    return view('admin.index');
-})->middleware('role.check');
+
+Route::prefix('/chair')->middleware('auth.chair')->namespace('App\Http\Controllers\Chair')->group(function () {
+    
+  Route::get('/', 'HomeController@index')->name('chair.dashboard');
+  Route::resource('/users', 'UsersController');
+
+});

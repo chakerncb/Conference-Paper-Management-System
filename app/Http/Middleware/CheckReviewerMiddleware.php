@@ -7,7 +7,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class RoleCheckMiddleware
+class CheckReviewerMiddleware
 {
     /**
      * Handle an incoming request.
@@ -24,8 +24,8 @@ class RoleCheckMiddleware
 
         $roleId = auth()->user()->role_id;
         $role = Roles::find($roleId);
-        if (!$role || $role->name !== 'chair') {
-            return redirect()->route('home')->with('error', 'You do not have permission to access this page.');
+        if (!$role || $role->name !== 'Reviewer') {
+            return redirect()->route(route: 'home')->with('error', 'You do not have permission to access this page.');
         }
 
         return $next($request);
