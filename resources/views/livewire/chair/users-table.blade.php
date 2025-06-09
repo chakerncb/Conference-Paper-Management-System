@@ -1,4 +1,5 @@
-    <div class="w-full overflow-hidden rounded-lg shadow-xs">
+<div>
+      <div class="w-full overflow-hidden rounded-lg shadow-xs">
       <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
         <h2 class="text-lg font-semibold text-gray-700 dark:text-gray-200">
             Users
@@ -20,7 +21,7 @@
             </select>
             <button
               class="px-4 py-2 text-sm font-medium text-white bg-purple-600 rounded-lg hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-              wire:click="$emit('openModal', 'chair.create-user')"
+              @click="$dispatch('open-modal', { component: 'chair.create-user' })"
             >
               Add User
             </button>
@@ -133,3 +134,88 @@
 
       </div>
     </div>
+
+    <!-- User Form Modal -->
+ <div x-data="{ open: false }" x-show="open" @open-modal.window="open = ($event.detail.component === 'chair.create-user')" 
+  @close-modal.window="open = false" x-cloak
+  class="fixed inset-0 z-50 overflow-y-auto" style="display: none;">
+  <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+    <!-- Background overlay with blur -->
+    <div class="fixed inset-0 transition-opacity bg-gray-900 bg-opacity-50 backdrop-blur-sm" @click="open = false"></div>
+    
+    <!-- Modal panel - smaller size -->
+    <div class="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-lg dark:bg-gray-800">
+     <h3 class="text-lg font-medium leading-6 text-gray-900 dark:text-gray-100 mb-4">
+       Add New User
+     </h3>
+     
+     <form wire:submit.prevent="createUser">
+       <!-- First Name and Last Name in one row -->
+       <div class="grid grid-cols-2 gap-4 mb-4">
+         <div>
+           <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+             First Name
+           </label>
+           <input type="text" wire:model="name"
+               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300">
+         </div>
+         
+         <div>
+           <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+             Last Name
+           </label>
+           <input type="text" wire:model="last_name"
+               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300">
+         </div>
+       </div>
+       
+       <!-- Email and Phone in one row -->
+       <div class="grid grid-cols-2 gap-4 mb-4">
+         <div>
+           <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+             Email
+           </label>
+           <input type="email" wire:model="email"
+               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300">
+         </div>
+         
+         <div>
+           <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+             Phone Number
+           </label>
+           <input type="text" wire:model="phone"
+               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300">
+         </div>
+       </div>
+       
+       <!-- Role field full width -->
+       <div class="mb-6">
+         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+           Role
+         </label>
+         <select wire:model="role_id"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300">
+           <option value="">Select Role</option>
+           <option value="1">Admin</option>
+           <option value="2">Chair</option>
+           <option value="3">Reviewer</option>
+           <option value="4">Author</option>
+         </select>
+       </div>
+       
+       <div class="flex justify-end space-x-3">
+         <button type="button" @click="open = false"
+              class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 dark:bg-gray-600 dark:text-gray-300 dark:hover:bg-gray-500">
+           Cancel
+         </button>
+         <button type="submit"
+              class="px-4 py-2 text-sm font-medium text-white bg-purple-600 rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500">
+           Create User
+         </button>
+       </div>
+     </form>
+    </div>
+  </div>
+</div>
+
+</div>
