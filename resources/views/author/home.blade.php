@@ -27,25 +27,6 @@
 
   <!-- Main Content -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <!-- Quick Stats -->
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
-      <div class="bg-white rounded-lg shadow-md p-6 text-center border-l-4 border-blue-500">
-        <div class="text-3xl font-bold text-blue-600 mb-2">156</div>
-        <div class="text-gray-600">Papers Submitted</div>
-      </div>
-      <div class="bg-white rounded-lg shadow-md p-6 text-center border-l-4 border-green-500">
-        <div class="text-3xl font-bold text-green-600 mb-2">89</div>
-        <div class="text-gray-600">Under Review</div>
-      </div>
-      <div class="bg-white rounded-lg shadow-md p-6 text-center border-l-4 border-yellow-500">
-        <div class="text-3xl font-bold text-yellow-600 mb-2">42</div>
-        <div class="text-gray-600">Accepted</div>
-      </div>
-      <div class="bg-white rounded-lg shadow-md p-6 text-center border-l-4 border-purple-500">
-        <div class="text-3xl font-bold text-purple-600 mb-2">25</div>
-        <div class="text-gray-600">Days Left</div>
-      </div>
-    </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
       <!-- Quick Actions -->

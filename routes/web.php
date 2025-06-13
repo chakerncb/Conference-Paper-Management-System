@@ -16,5 +16,5 @@ Route::middleware('auth')->namespace('App\Http\Controllers\Author')->group(funct
 
 Route::prefix('/chair')->middleware('auth.chair')->namespace('App\Http\Controllers\Chair')->group(function () {
   Route::get('/', 'HomeController@index')->name('chair.dashboard');
-  Route::resource('/users', 'UsersController');
+  Route::get('/users', 'UsersController@index')->name('chair.users.index');	
 });
