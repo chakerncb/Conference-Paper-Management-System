@@ -3,6 +3,7 @@
 namespace App\Livewire\Author;
 
 use App\Models\Paper;
+use App\Models\Tag;
 use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -23,7 +24,12 @@ class SubmitPaperForm extends Component
 
     public function render()
     {
-        return view('livewire.author.submit-paper-form');
+ 
+        $tags = Tag::all();
+
+        return view('livewire.author.submit-paper-form', [
+            'tags' => $tags,
+        ]);
     }
 
     public function submit()

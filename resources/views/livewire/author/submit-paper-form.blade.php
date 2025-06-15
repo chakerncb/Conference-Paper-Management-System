@@ -50,10 +50,100 @@
                 <i class="fas fa-tags text-blue-500 mr-2"></i>
                 Keywords *
               </label>
-              <input type="text" id="keywords" name="keywords" value="{{ old('keywords') }}" 
-                     wire:model="keywords"
-                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 @error('keywords') border-red-500 @enderror" 
-                     placeholder="machine learning, artificial intelligence, data mining" required>
+              <div class="relative">
+                <div class="w-full min-h-[48px] px-4 py-3 border border-gray-300 rounded-lg focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 transition-colors duration-200 @error('keywords') border-red-500 @enderror flex flex-wrap items-center gap-2">
+                  <!-- Selected Keywords Tags -->
+                  <div class="flex flex-wrap gap-2" id="keywords-container">
+                    <!-- Keywords will be added here dynamically -->
+                  </div>
+                  
+                  <!-- Input Field -->
+                  <input type="text" 
+                    id="keywords-input" 
+                    class="flex-1 min-w-[200px] border-none outline-none bg-transparent text-gray-700 placeholder-gray-400"
+                    placeholder="Type a keyword and press Enter..."
+                    onkeydown="handleKeywordInput(event)">
+                  </div>
+
+                  <!-- Dropdown for selecting predefined keywords -->
+                  <div class="mt-2">
+                    <select id="keywords-select"
+                       class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
+                       onchange="handleKeywordSelect(this)">
+                      <option value="" disabled selected>Or select from predefined keywords</option>
+                      @foreach($tags as $keyword)
+                        <option value="{{ $keyword->name }}">{{ $keyword->name }}</option>
+                      @endforeach
+                    </select>
+                  </div>
+                
+                <!-- Hidden input to store keywords for form submission -->
+                <input type="hidden" id="keywords" name="keywords" wire:model="keywords">
+              </div>
+
+              <script>
+              document.addEventListener('DOMContentLoaded', function() {
+                  let keywords = [];
+                  
+                  window.handleKeywordInput = function(event) {
+                      if (event.key === 'Enter') {
+                          event.preventDefault();
+                          const input = event.target;
+                          const keyword = input.value.trim();
+                          
+                          if (keyword && !keywords.includes(keyword.toLowerCase())) {
+                              addKeyword(keyword);
+                              input.value = '';
+                          }
+                      }
+                  };
+                  
+                  window.handleKeywordSelect = function(select) {
+                      const keyword = select.value.trim();
+                      
+                      if (keyword && !keywords.includes(keyword.toLowerCase())) {
+                          addKeyword(keyword);
+                          select.selectedIndex = 0; // Reset to default option
+                      }
+                  };
+                  
+                  function addKeyword(keyword) {
+                      keywords.push(keyword.toLowerCase());
+                      
+                      const container = document.getElementById('keywords-container');
+                      const tag = document.createElement('span');
+                      tag.className = 'inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800 hover:bg-blue-200 transition-colors duration-200';
+                      tag.setAttribute('data-keyword', keyword.toLowerCase());
+                      tag.innerHTML = `
+                          ${keyword}
+                          <button type="button" class="ml-2 text-blue-600 hover:text-blue-800" onclick="removeKeyword('${keyword.toLowerCase()}')">
+                              <i class="fas fa-times text-xs"></i>
+                          </button>
+                      `;
+                      container.appendChild(tag);
+                      updateHiddenInput();
+                  }
+                  
+                  window.removeKeyword = function(keyword) {
+                      keywords = keywords.filter(k => k !== keyword);
+                      const tag = document.querySelector(`[data-keyword="${keyword}"]`);
+                      if (tag) {
+                          tag.remove();
+                      }
+                      updateHiddenInput();
+                  };
+                  
+                  function updateHiddenInput() {
+                      const keywordString = keywords.join(', ');
+                      document.getElementById('keywords').value = keywordString;
+                      
+                      // Use Livewire's set method without triggering re-render
+                      if (window.Livewire && @this) {
+                          @this.set('keywords', keywordString, false);
+                      }
+                  }
+              });
+              </script>
               @error('keywords')
                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
               @enderror

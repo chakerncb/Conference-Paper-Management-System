@@ -18,6 +18,9 @@ class PapersTable extends Component
     public $selectedReviewers = [];
     public $currentPaperId = null;
     public $perPage = 10;
+
+    public $expandedAbstracts = [];
+
     public function render()
     {
         $papers = Paper::with(['author', 'reviews.reviewer'])->paginate($this->perPage);
@@ -63,6 +66,15 @@ class PapersTable extends Component
             LivewireAlert::success()
                 ->text('Paper deleted successfully')
                 ->show();
+        }
+    }
+
+    public function toggleAbstract($paperId)
+    {
+        if (isset($this->expandedAbstracts[$paperId]) && $this->expandedAbstracts[$paperId]) {
+            $this->expandedAbstracts[$paperId] = false;
+        } else {
+            $this->expandedAbstracts[$paperId] = true;
         }
     }
 
