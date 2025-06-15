@@ -25,4 +25,19 @@ class Paper extends Model
         return $this->belongsTo(User::class, 'author_id');
     }
 
+    /**
+     * Get the reviews for the paper.
+     */
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    /**
+     * Get the reviewers assigned to this paper.
+     */
+    public function reviewers()
+    {
+        return $this->belongsToMany(User::class, 'reviews', 'paper_id', 'reviewer_id');
+    }
 }

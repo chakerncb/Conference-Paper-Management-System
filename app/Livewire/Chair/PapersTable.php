@@ -4,6 +4,7 @@ namespace App\Livewire\Chair;
 
 use App\Models\Paper;
 use App\Models\User;
+use App\Models\Review;
 use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -19,14 +20,19 @@ class PapersTable extends Component
     public $perPage = 10;
     public function render()
     {
-        $papers = Paper::paginate($this->perPage);
+        $papers = Paper::with(['author', 'reviews.reviewer'])->paginate($this->perPage);
         
         $reviewers = collect();
         if ($this->showFormForPaper) {
+            // Get current paper's assigned reviewers to exclude them from selection
+            $currentPaper = Paper::find($this->showFormForPaper);
+            $assignedReviewerIds = $currentPaper ? $currentPaper->reviews()->pluck('reviewer_id')->toArray() : [];
+            
             $reviewers = User::with('role')
                 ->whereHas('role', function ($query) {
                     $query->where('name', 'reviewer');
                 })
+                ->whereNotIn('id', $assignedReviewerIds) // Exclude already assigned reviewers
                 ->when($this->searchTerm, function ($query) {
                     $query->where(function ($q) {
                         $q->where('name', 'like', '%' . $this->searchTerm . '%')
@@ -72,7 +78,6 @@ class PapersTable extends Component
             $this->currentPaperId = $paperId;
             $this->selectedReviewers = [];
             $this->searchTerm = '';
-            // Reset reviewers pagination when opening the form
             $this->resetPage('reviewersPage');
         }
     }
@@ -93,12 +98,44 @@ class PapersTable extends Component
             'selectedReviewers.*' => 'exists:users,id',
         ]);
 
-        // Here you would typically save the reviewer assignments
-        // For now, just show a success message
-        LivewireAlert::success()
-            ->text('Reviewers assigned successfully' . 'Paper ID: ' . $this->currentPaperId . ', Reviewers: ' . implode(', ', $this->selectedReviewers))
-            ->show();
+        try {
+            $paper = Paper::findOrFail($this->currentPaperId);
             
+            $existingReviewers = $paper->reviews()->pluck('reviewer_id')->toArray();
+            $newReviewers = array_diff($this->selectedReviewers, $existingReviewers);
+            
+            if (empty($newReviewers)) {
+                LivewireAlert::warning()
+                    ->text('These reviewers are already assigned to this paper.')
+                    ->show();
+                return;
+            }
+            
+            foreach ($this->selectedReviewers as $reviewerId) {
+                if (!in_array($reviewerId, $existingReviewers)) {
+                    Review::create([
+                        'paper_id' => $this->currentPaperId,
+                        'reviewer_id' => $reviewerId,
+                        'score' => null, 
+                        'comments' => null 
+                    ]);
+                }
+            }
+            
+            $paper->update(['status' => 'Under Review']);            
+            $reviewerNames = User::whereIn('id', $this->selectedReviewers)->pluck('name')->implode(', ');
+            
+            LivewireAlert::success()
+                ->text("Reviewers assigned successfully! Paper \"{$paper->title}\" has been assigned to: {$reviewerNames}")
+                ->show();
+                
+        } catch (\Exception $e) {
+            LivewireAlert::error()
+                ->text('Failed to assign reviewers. Please try again.')
+                ->show();
+        }
+            
+        // Reset form
         $this->showFormForPaper = null;
         $this->currentPaperId = null;
         $this->selectedReviewers = [];

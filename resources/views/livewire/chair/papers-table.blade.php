@@ -57,13 +57,21 @@
                                 <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
                                     {{$paper->status}}
                                 </span>
+                                @if($paper->reviews->count() > 0)
+                                    <div class="mt-1">
+                                        <span class="px-2 py-1 text-xs font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-200">
+                                            {{ $paper->reviews->count() }} reviewer(s)
+                                        </span>
+                                    </div>
+                                @endif
                             </td>
                             <td class="px-4 py-3">
                                 <div class="flex items-center space-x-2 text-sm">
                                     <button
                                         class="flex items-center justify-center p-2 text-purple-600 rounded-lg hover:bg-purple-100 dark:text-gray-400 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-500"
                                         aria-label="Assign Reviewers"
-                                        wire:click="toggleReviewerForm({{ $paper->id }})">>
+                                        wire:click="toggleReviewerForm({{ $paper->id }})"
+                                        title="@if($paper->reviews->count() > 0) Manage Reviewers @else Assign Reviewers @endif">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 20 20" version="1.1" fill="#000000">
                                         <g id="SVGRepo_bgCarrier" stroke-width="0"/>
                                         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
@@ -98,7 +106,7 @@
                                     <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg border p-6">
                                         <div class="flex justify-between items-center mb-4">
                                             <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                                                Pick Reviewers for "{{ Str::limit($paper->title, 50) }}"
+                                                Assign Reviewers for "{{ Str::limit($paper->title, 50) }}"
                                             </h3>
                                             <button 
                                                 type="button"
@@ -110,8 +118,33 @@
                                             </button>
                                         </div>
                                         
+                                        @if($paper->reviews->count() > 0)
+                                            <div class="mb-4 p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg border border-yellow-200 dark:border-yellow-800">
+                                                <h4 class="text-sm font-medium text-yellow-800 dark:text-yellow-200 mb-2">Currently Assigned Reviewers:</h4>
+                                                <ul class="text-sm text-yellow-700 dark:text-yellow-300">
+                                                    @foreach($paper->reviews as $review)
+                                                        <li class="flex items-center gap-2">
+                                                            <svg class="w-4 h-4 text-yellow-600" fill="currentColor" viewBox="0 0 20 20">
+                                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                                            </svg>
+                                                            {{ $review->reviewer->name }} ({{ $review->reviewer->email }})
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                                @if($paper->reviews->count() >= 2)
+                                                    <p class="text-xs text-yellow-600 dark:text-yellow-400 mt-2">
+                                                        This paper already has the maximum number of reviewers assigned.
+                                                    </p>
+                                                @endif
+                                            </div>
+                                        @endif
+                                        
                                         <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
-                                            Select <span class="font-medium">exactly 2 reviewers</span> for this paper.
+                                            @if($paper->reviews->count() >= 2)
+                                                This paper already has 2 reviewers assigned. You can assign additional reviewers if needed.
+                                            @else
+                                                Select <span class="font-medium">exactly 2 reviewers</span> for this paper.
+                                            @endif
                                         </p>
 
                                         {{-- Search Box --}}
@@ -150,9 +183,8 @@
                                                                 <td class="px-4 py-3">
                                                                     <input 
                                                                         type="checkbox" 
-                                                                        wire:model="selectedReviewers" 
                                                                         wire:click="selectReviewer({{ $reviewer->id }})"
-                                                                        value="{{ $reviewer->id }}" 
+                                                                        @if(in_array($reviewer->id, $selectedReviewers)) checked @endif
                                                                         class="form-checkbox h-4 w-4 text-blue-600 rounded focus:ring-blue-500"
                                                                         @if(count($selectedReviewers) >= 2 && !in_array($reviewer->id, $selectedReviewers)) disabled @endif
                                                                     />
