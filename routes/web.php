@@ -17,4 +17,14 @@ Route::middleware('auth')->namespace('App\Http\Controllers\Author')->group(funct
 Route::prefix('/chair')->middleware('auth.chair')->namespace('App\Http\Controllers\Chair')->group(function () {
   Route::get('/', 'HomeController@index')->name('chair.dashboard');
   Route::get('/users', 'UsersController@index')->name('chair.users.index');	
+  Route::get('papers' , 'PapersController@index')->name('chair.papers.index');
 });
+
+Route::get('pdf/{file}' , function($file){
+    return
+    response()->file(storage_path('app/public/papers/'.$file),[
+      'Content-Type' => 'application/pdf',
+      'Content-Disposition' => 'inline; filename="'.$file.'"'
+      
+    ]);
+  })->name('paper.print');

@@ -16,4 +16,13 @@ class Paper extends Model
         'status',
     ];
 
+
+    /**
+     * Get the author of the paper.
+     */
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'author_id');
+    }
+
 }

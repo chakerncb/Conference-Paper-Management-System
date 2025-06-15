@@ -66,7 +66,8 @@ class SubmitPaperForm extends Component
         $paper->title = $this->title;
         $paper->abstract = $this->abstract;
         $paper->keywords = $this->keywords;
-        $paper->file_path = $this->file->store('papers', 'public');
+        $fileName = $this->file->store('/' , 'papers');
+        $paper->file_path = $fileName;
         $paper->status = 'Submitted';
         $paper->save();
 
