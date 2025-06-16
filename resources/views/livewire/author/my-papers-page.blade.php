@@ -99,7 +99,16 @@
               <div class="flex items-center space-x-3 mb-2">
                 <h3 class="text-xl font-bold text-gray-900">{{$paper->title}}</h3>
                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100
-                    text-green-800
+                   {{ $paper->status === 'Accepted' ? 'text-green-800' : '' }}
+                    {{
+                        $paper->status === 'Under Review' ? 'bg-yellow-100 text-yellow-800' : ''
+                    }}
+                    {{
+                        $paper->status === 'Rejected' ? 'bg-red-100 text-red-800' : ''
+                    }}
+                    {{
+                        $paper->status === 'Submitted' ? 'bg-blue-100 text-blue-800' : ''
+                    }}
                 ">
                   <i class="fas fa-check-circle mr-1"></i>
                    {{$paper->status}}
@@ -117,11 +126,11 @@
                 </div>
                 <div class="flex items-center">
                   <i class="fas fa-star mr-2"></i>
-                  Review Score: 8.5/10
+                  Review Score: {{ $paper->reviews->avg('score') ? number_format($paper->reviews->avg('score'), 1) : 'N/A' }}/10 
                 </div>
                 <div class="flex items-center">
                   <i class="fas fa-tags mr-2"></i>
-                  
+                     {{$paper->keywords}}
                 </div>
               </div>
               
@@ -129,25 +138,38 @@
               <div class="mb-4">
                 <div class="flex justify-between text-sm text-gray-600 mb-1">
                   <span>Review Progress</span>
-                  <span>3/3 Reviews Complete</span>
+                  <span>{{$paper->reviews->where('score', '!=', '')->count()}}/{{$paper->reviews->count()}} Reviews Complete</span>
                 </div>
                 <div class="w-full bg-gray-200 rounded-full h-2">
-                  <div class="bg-green-500 h-2 rounded-full" style="width: 100%"></div>
+                  <div class="
+                     {{ $paper->status === 'Accepted' ? 'bg-green-500' : '' }}
+                    {{
+                        $paper->status === 'Under Review' ? 'bg-yellow-500' : ''
+                    }}
+                    {{
+                        $paper->status === 'Rejected' ? 'bg-red-500' : ''
+                    }}
+                    {{
+                        $paper->status === 'Submitted' ? 'bg-blue-500' : ''
+                    }}
+                     h-2 rounded-full" 
+                      style="width: {{ ($paper->reviews->count() > 0) ? ($paper->reviews->where('score', '!=', '')->count() / $paper->reviews->count()) * 100 : 0 }}%"
+                    ></div>
                 </div>
               </div>
             </div>
             
             <!-- Action Buttons -->
             <div class="flex flex-col space-y-2 ml-6">
-              <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                <a href="{{route('paper.print', $paper->file_path)}}" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm font-medium">
                 <i class="fas fa-eye mr-1"></i> View Details
-              </button>
-              <button class="text-green-600 hover:text-green-800 text-sm font-medium">
+                </a>
+              <a class="text-green-600 hover:text-green-800 text-sm font-medium">
                 <i class="fas fa-download mr-1"></i> Download PDF
-              </button>
-              <button class="text-purple-600 hover:text-purple-800 text-sm font-medium">
+              </a>
+              <a class="text-purple-600 hover:text-purple-800 text-sm font-medium">
                 <i class="fas fa-comment mr-1"></i> View Reviews
-              </button>
+              </a>
             </div>
           </div>
         </div>
