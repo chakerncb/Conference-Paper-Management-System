@@ -20,6 +20,13 @@ Route::prefix('/chair')->middleware('auth.chair')->namespace('App\Http\Controlle
   Route::get('papers' , 'PapersController@index')->name('chair.papers.index');
 });
 
+
+Route::prefix('/reviewer')->middleware('auth.reviewer')->namespace('App\Http\Controllers\Reviewer')->group(function () {
+     Route::get('/', function () {
+        return 'Welcome to the Reviewer Dashboard';
+    })->name('reviewer.dashboard');
+});
+
 Route::get('pdf/{file}' , function($file){
     return
     response()->file(storage_path('app/public/papers/'.$file),[

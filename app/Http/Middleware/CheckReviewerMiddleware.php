@@ -24,7 +24,7 @@ class CheckReviewerMiddleware
 
         $roleId = auth()->user()->role_id;
         $role = Roles::find($roleId);
-        if (!$role || $role->name !== 'Reviewer') {
+        if (!$role || $role->name !== 'reviewer') {
             return redirect()->route(route: 'home')->with('error', 'You do not have permission to access this page.');
         }
 
