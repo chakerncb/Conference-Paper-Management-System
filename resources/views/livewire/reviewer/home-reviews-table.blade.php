@@ -34,7 +34,7 @@
           </div> 
           
           <div class="mt-6 text-center">
-            <a href="#" class="text-purple-600 hover:text-purple-800 font-medium">View All Pending Reviews →</a>
+            <a href="{{route('reviewer.reviews.index')}}" class="text-purple-600 hover:text-purple-800 font-medium">View All Pending Reviews →</a>
           </div>
         </div>
 

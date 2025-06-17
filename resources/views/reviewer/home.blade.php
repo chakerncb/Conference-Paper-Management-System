@@ -12,7 +12,7 @@
           Your expertise helps maintain the highest standards of academic excellence.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="#pending-reviews" class="bg-white text-purple-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200 shadow-lg">
+          <a href="{{route('reviewer.reviews.index')}}" class="bg-white text-purple-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200 shadow-lg">
             View Pending Reviews
           </a>
           <a href="#review-guidelines" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-purple-600 transition-colors duration-200">

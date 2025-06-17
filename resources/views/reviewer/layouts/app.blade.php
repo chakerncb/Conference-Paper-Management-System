@@ -34,10 +34,10 @@
         </div>
         <div class="hidden md:flex space-x-8">
           <a href="{{route('reviewer.home')}}" class="text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200 border-b-2 border-purple-600">Dashboard</a>
-          <a href="#" class="text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200">Pending Reviews</a>
-          <a href="#" class="text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200">Review History</a>
+          <a href="{{route('reviewer.reviews.index')}}" class="text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200">Pending Reviews</a>
+          <a href="{{route('reviewer.reviews.history')}}" class="text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200">Review History</a>
           <a href="#" class="text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200">Guidelines</a>
-          <a href="#" class="text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200">Profile</a>
+          {{-- <a href="#" class="text-gray-700 hover:text-purple-600 font-medium transition-colors duration-200">Profile</a> --}}
         </div>
         <div class="hidden md:flex items-center space-x-4">
           @auth

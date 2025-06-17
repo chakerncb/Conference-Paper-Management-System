@@ -10,6 +10,7 @@ class HomeReviewsTable extends Component
     {
         $reviews = auth()->user()->reviews()
             ->with('paper')
+            ->whereNull('score') // Only pending reviews
             ->orderBy('created_at', 'desc')
             ->paginate(4);
 
