@@ -22,9 +22,9 @@ Route::prefix('/chair')->middleware('auth.chair')->namespace('App\Http\Controlle
 
 
 Route::prefix('/reviewer')->middleware('auth.reviewer')->namespace('App\Http\Controllers\Reviewer')->group(function () {
-     Route::get('/', function () {
-        return 'Welcome to the Reviewer Dashboard';
-    })->name('reviewer.dashboard');
+     Route::get('/', 'HomeController@index')->name('reviewer.home');
+     Route::get('/reviews', 'ReviewsController@index')->name('reviewer.reviews.index');      
+      Route::get('/reviews/history', 'ReviewsController@history')->name('reviewer.reviews.history');
 });
 
 Route::get('pdf/{file}' , function($file){

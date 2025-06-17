@@ -58,4 +58,12 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Roles::class);
     }
+
+    /**
+     * Get the reviews associated with the user.
+     */
+    public function reviews()
+    {
+        return $this->hasMany(Review::class , 'reviewer_id');
+    }
 }

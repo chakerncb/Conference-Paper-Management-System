@@ -124,7 +124,7 @@
                 </div>
                 <div class="flex items-center">
                   <i class="fas fa-star mr-2"></i>
-                  Review Score: {{ $paper->reviews->avg('score') ? number_format($paper->reviews->avg('score'), 1) : 'N/A' }}/10 
+                  Review Score: {{ $paper->reviews->avg('score') ? number_format($paper->reviews->avg('score')  , 1) : 'N/A' }}
                 </div>
                 <div class="flex items-center">
                   <i class="fas fa-tags mr-2"></i>
@@ -166,10 +166,10 @@
             </div>
             
             <div class="flex flex-col space-y-2 ml-6">
-              <a href="{{ route('paper.print', $paper->file_path) }}" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+              {{-- <a href="{{ route('paper.print', $paper->file_path) }}" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm font-medium">
                 <i class="fas fa-eye mr-1"></i> View Details
-              </a>
-              <a class="text-green-600 hover:text-green-800 text-sm font-medium cursor-pointer">
+              </a> --}}
+              <a href="{{ route('paper.print', $paper->file_path) }}" target="_blank" class="text-green-600 hover:text-green-800 text-sm font-medium cursor-pointer">
                 <i class="fas fa-download mr-1"></i> Download PDF
               </a>
               @if($paper->status === 'Accepted' || $paper->status === 'Rejected')
@@ -211,7 +211,7 @@
         </p>
         @if(!$search && !$statusFilter)
         <div class="mt-6">
-          <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200">
+          <a href="{{route('paper.create')}}" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200">
             <i class="fas fa-plus mr-2"></i>
             Submit Your First Paper
           </a>

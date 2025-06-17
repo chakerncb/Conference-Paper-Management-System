@@ -79,9 +79,9 @@ class MyPapersPage extends Component
         // Apply search filter
         if (!empty($this->search)) {
             $query->where(function ($q) {
-                $q->where('title', 'like', '%' . $this->search . '%')
-                  ->orWhere('abstract', 'like', '%' . $this->search . '%')
-                  ->orWhere('keywords', 'like', '%' . $this->search . '%');
+                $q->where('title', 'like', '%' . $this->search . '%');
+                //   ->orWhere('abstract', 'like', '%' . $this->search . '%')
+                //   ->orWhere('keywords', 'like', '%' . $this->search . '%');
             });
         }
 
