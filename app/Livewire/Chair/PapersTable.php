@@ -178,4 +178,32 @@ class PapersTable extends Component
 
 
     }
+    public $expandedComments = [];
+
+    public function toggleComment($reviewId)
+    {
+        if (isset($this->expandedComments[$reviewId]) && $this->expandedComments[$reviewId]) {
+            $this->expandedComments[$reviewId] = false;
+        } else {
+            $this->expandedComments[$reviewId] = true;
+        }
+    }
+
+    public function finalDecision($paperId, $decision)
+    {
+        $paper = Paper::find($paperId);
+        
+        if ($paper) {
+            $paper->status = $decision;
+            $paper->save();
+            LivewireAlert::success()
+                ->text("Paper status updated to: {$decision}")
+                ->show();
+        } else {
+            LivewireAlert::error()
+                ->text('Paper not found')
+                ->show();
+        }
+    }
+    
 }
