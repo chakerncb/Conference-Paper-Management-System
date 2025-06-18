@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Reviewer;
 
+use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Review;
@@ -128,7 +129,10 @@ class PendingReviewsTable extends Component
                 'comments' => $this->comments,
             ]);
 
-            session()->flash('message', 'Review submitted successfully!');
+            LivewireAlert::success()
+                ->text('Review submitted successfully!')
+                ->show();
+                
             $this->closeReviewForm();
         }
     }

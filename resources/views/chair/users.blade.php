@@ -1,29 +1,31 @@
-@extends('chair.layouts.master')
-
-@section('title', 'Users Management')
+@extends('chair.layouts.app')
 
 @section('content')
-  <div class="container max-w-full px-4 sm:px-6 mx-auto">
-    <div class="py-6">
-      <div class="md:flex md:items-center md:justify-between mb-6">
-        <div class="flex-1 min-w-0">
-          <h2 class="text-2xl font-bold leading-7 text-gray-900 dark:text-gray-100 sm:text-3xl sm:truncate">
-            Users Management
-          </h2>
-          <div class="mt-1 flex flex-col sm:flex-row sm:flex-wrap sm:mt-0 sm:space-x-6">
-            <div class="mt-2 flex items-center text-sm text-gray-500 dark:text-gray-400">
-              <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"></path>
-              </svg>
-              Manage system users and roles
-            </div>
+
+  <!-- Page Header -->
+  <div class="pt-16 bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-4xl font-bold mb-4">Users Management</h1>
+          <p class="text-xl text-blue-100">
+            Manage system users, reviewers, and author accounts
+          </p>
+        </div>
+        <div class="hidden md:block">
+          <div class="bg-white/10 px-6 py-3 rounded-lg backdrop-blur-sm">
+            <span class="text-sm text-blue-100">Total Users</span>
+            <div class="text-2xl font-bold">{{ $usersCount ?? 0 }}</div>
           </div>
         </div>
       </div>
     </div>
-
-    @livewire('chair.users-table')
-
   </div>
+
+  <!-- Main Content -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    @livewire('chair.users-table')
+  </main>
+
 @endsection
        

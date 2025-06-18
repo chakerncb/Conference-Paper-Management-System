@@ -1,25 +1,25 @@
 <div class="max-w-full">
       <div class="w-full overflow-hidden rounded-lg shadow-sm">
-      <div class="px-4 sm:px-6 py-4 mb-6 bg-white rounded-lg shadow-md border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+      <div class="px-4 sm:px-6 py-4 mb-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg shadow-md border border-blue-200">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200">
+            <h2 class="text-xl font-semibold text-gray-800">
                 Users Management
             </h2>
-            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">
+            <p class="text-sm text-gray-600 mt-1">
               Manage and monitor users in the system.
             </p>
           </div>
           <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3 floa">
              <div class="flex items-center space-x-2">
-                <label for="perPage" class="text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label for="perPage" class="text-sm font-medium text-gray-700">
                     Per page:
                 </label>
                 <select 
                     id="perPage"
                     wire:model="perPage"  
                     wire:change="changePerPage($event.target.value)"
-                    class="px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 dark:focus:ring-blue-400 transition-colors"
+                    class="px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                     aria-label="Select number of items per page">
                   <option value="5">5</option>
                   <option value="10">10</option>
@@ -40,12 +40,12 @@
           </div>
         </div>
       </div>
-      <div class="bg-white rounded-lg shadow-md border border-gray-200 dark:bg-gray-800 dark:border-gray-700 overflow-hidden">
+      <div class="bg-gradient-to-b from-white to-blue-50 rounded-lg shadow-md border border-blue-200 overflow-hidden">
         <div class="overflow-x-auto">
         <table class="w-full">
           <thead>
             <tr
-              class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:bg-gray-700"
+              class="text-xs font-semibold tracking-wide text-left text-white uppercase border-b border-blue-300 bg-gradient-to-r from-blue-500 to-blue-600"
             >
               <th class="px-4 py-3 min-w-[200px]">User</th>
               <th class="px-4 py-3 min-w-[200px] hidden sm:table-cell">Email</th>
@@ -54,49 +54,40 @@
             </tr>
           </thead>
           <tbody
-            class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-800"
+            class="bg-gradient-to-b from-blue-50 to-white divide-y divide-blue-100"
           >
           @foreach ($users as $user)
-              <tr class="text-gray-700 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-750 transition-colors duration-150">
+              <tr class="text-gray-700 hover:bg-blue-100 transition-colors duration-150 border-l-4 border-transparent hover:border-blue-500">
               <td class="px-4 py-4">
                 <div class="flex items-center">
                   <!-- Avatar with inset shadow -->
-                  <div
-                    class="relative flex-shrink-0 w-10 h-10 mr-3 rounded-full"
-                  >
-                    <img
-                      class="object-cover w-full h-full rounded-full border border-gray-200 dark:border-gray-600"
-                      src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                      alt="{{$user->name}}"
-                      loading="lazy"
-                    />
-                    <div
-                      class="absolute inset-0 rounded-full shadow-inner"
-                      aria-hidden="true"
-                    ></div>
+                  <div class="flex-shrink-0 w-8 h-8 mr-3">
+                      <div class="w-8 h-8 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center text-white text-sm font-semibold">
+                          {{strtoupper(substr($user->name, 0, 1))}}
+                      </div>
                   </div>
                   <div class="min-w-0 flex-1">
-                    <p class="text-sm font-semibold text-gray-900 dark:text-gray-100 truncate">
+                    <p class="text-sm font-semibold text-gray-900 truncate">
                         {{$user->name}} {{$user->last_name}} 
                     </p>
-                    <p class="text-xs text-gray-500 dark:text-gray-400 truncate">
+                    <p class="text-xs text-gray-500 truncate">
                       {{$user->role->name}}
                     </p>
                   </div>
                 </div>
               </td>
-              <td class="px-4 py-4 text-sm text-gray-600 dark:text-gray-400 hidden sm:table-cell">
+              <td class="px-4 py-4 text-sm text-gray-600 hidden sm:table-cell">
                 <div class="truncate" title="{{$user->email}}">
                     {{$user->email}}
                 </div>
               </td>
-              <td class="px-4 py-4 text-sm text-gray-600 dark:text-gray-400 hidden md:table-cell">
+              <td class="px-4 py-4 text-sm text-gray-600 hidden md:table-cell">
                 {{$user->phone ?: 'N/A'}}
               </td>
               <td class="px-4 py-4">
                 <div class="flex items-center space-x-2">
                   <button
-                    class="inline-flex items-center justify-center w-8 h-8 text-blue-600 bg-blue-100 rounded-lg hover:bg-blue-200 dark:text-blue-400 dark:bg-blue-900 dark:hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+                    class="inline-flex items-center justify-center w-8 h-8 text-blue-600 bg-blue-100 rounded-lg hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
                     aria-label="Edit"
                     wire:click="editUser({{ $user->id }})"
                     title="Edit user"
@@ -113,7 +104,7 @@
                     </svg>
                   </button>
                   <button
-                    class="inline-flex items-center justify-center w-8 h-8 text-red-600 bg-red-100 rounded-lg hover:bg-red-200 dark:text-red-400 dark:bg-red-900 dark:hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-red-500 transition-colors"
+                    class="inline-flex items-center justify-center w-8 h-8 text-red-600 bg-red-100 rounded-lg hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-red-500 transition-colors"
                     aria-label="Delete"
                     wire:click="deleteUser({{ $user->id }})"
                     title="Delete user"
@@ -140,10 +131,10 @@
         </table>
       </div>
       <div
-        class="px-4 sm:px-6 py-3 bg-gray-50 dark:bg-gray-700 border-t border-gray-200 dark:border-gray-600"
+        class="px-4 sm:px-6 py-3 bg-gradient-to-r from-blue-50 to-indigo-50 border-t border-blue-200"
       >
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <div class="text-sm text-gray-700 dark:text-gray-300">
+            <div class="text-sm text-gray-700">
                 @if($users->total() > 0)
                     Showing <span class="font-medium">{{ $users->firstItem() }}</span> to 
                     <span class="font-medium">{{ $users->lastItem() }}</span> of 
