@@ -37,7 +37,6 @@ class ConferenceSettingsSeeder extends Seeder
             ['key' => 'max_paper_size_mb', 'value' => '10', 'type' => 'number', 'group' => 'system'],
             ['key' => 'reviews_per_paper', 'value' => '3', 'type' => 'number', 'group' => 'system'],
             ['key' => 'enable_blind_review', 'value' => '1', 'type' => 'checkbox', 'group' => 'system'],
-            ['key' => 'enable_public_submissions', 'value' => '1', 'type' => 'checkbox', 'group' => 'system'],
         ];
 
         foreach ($settings as $setting) {

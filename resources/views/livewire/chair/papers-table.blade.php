@@ -444,7 +444,9 @@
                                                                             wire:click="selectReviewer({{ $reviewer->id }})"
                                                                             @if(in_array($reviewer->id, $selectedReviewers)) checked @endif
                                                                             class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                                                                            @if(count($selectedReviewers) >= 2 && !in_array($reviewer->id, $selectedReviewers)) disabled @endif
+                                                                            @if(count($selectedReviewers) == intval($reviewersNumber)) 
+                                                                                @if (!in_array($reviewer->id, $selectedReviewers)) disabled @endif
+                                                                            @endif
                                                                         />
                                                                     </td>
                                                                     <td class="px-6 py-4 whitespace-nowrap">
@@ -483,10 +485,10 @@
                                                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
                                                     </svg>
                                                     <span class="text-sm font-medium text-blue-700">
-                                                        Selected reviewers: <span class="font-bold">{{ count($selectedReviewers) }}/2</span>
+                                                        Selected reviewers: <span class="font-bold">{{ count($selectedReviewers) }}/{{$reviewersNumber}}</span>
                                                     </span>
                                                 </div>
-                                                @if(count($selectedReviewers) === 2)
+                                                @if(count($selectedReviewers) == intval($reviewersNumber))
                                                     <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
                                                         Ready to assign
                                                     </span>
@@ -506,12 +508,12 @@
                                                 type="button"
                                                 wire:click="submitReviewers"
                                                 class="px-6 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                                                @if(count($selectedReviewers) !== 2) disabled @endif
+                                                @if(count($selectedReviewers) != intval($reviewersNumber)) disabled @endif
                                             >
-                                                @if(count($selectedReviewers) === 2)
+                                                @if(count($selectedReviewers) == intval($reviewersNumber))
                                                     Assign Reviewers
                                                 @else
-                                                    Select 2 Reviewers
+                                                    Select {{$reviewersNumber}} Reviewers
                                                 @endif
                                             </button>
                                         </div>

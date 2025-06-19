@@ -73,7 +73,6 @@ class SettingsManager extends Component
             'max_paper_size_mb' => '10',
             'reviews_per_paper' => '3',
             'enable_blind_review' => '1',
-            'enable_public_submissions' => '1',
         ];
 
         LivewireAlert::info()

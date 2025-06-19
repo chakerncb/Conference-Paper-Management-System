@@ -281,26 +281,17 @@
                     <div class="md:col-span-2">
                         <div class="space-y-4">
                             <div class="flex items-center">
-                                <input 
-                                    type="checkbox" 
-                                    wire:model="settings.enable_blind_review"
-                                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                                    value="1"
-                                >
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input 
+                                        type="checkbox" 
+                                        wire:model="settings.enable_blind_review"
+                                        class="sr-only peer"
+                                        {{ $settings['enable_blind_review'] ? 'checked' : '' }}
+                                    >
+                                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                                </label>
                                 <label class="ml-2 block text-sm text-gray-900">
                                     Enable Blind Review Process
-                                </label>
-                            </div>
-
-                            <div class="flex items-center">
-                                <input 
-                                    type="checkbox" 
-                                    wire:model="settings.enable_public_submissions"
-                                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                                    value="1"
-                                >
-                                <label class="ml-2 block text-sm text-gray-900">
-                                    Enable Public Submissions
                                 </label>
                             </div>
                         </div>
@@ -316,8 +307,7 @@
                         <p><strong>Current Settings:</strong></p>
                         <p>• Max file size: {{ $settings['max_paper_size_mb'] ?? '10' }} MB</p>
                         <p>• Reviews per paper: {{ $settings['reviews_per_paper'] ?? '3' }}</p>
-                        <p>• Blind review: {{ ($settings['enable_blind_review'] ?? '1') == '1' ? 'Enabled' : 'Disabled' }}</p>
-                        <p>• Public submissions: {{ ($settings['enable_public_submissions'] ?? '1') == '1' ? 'Enabled' : 'Disabled' }}</p>
+                        <p>• Blind review: {{ ($settings['enable_blind_review']) == '1' ? 'Enabled' : 'Disabled' }}</p>
                     </div>
                 </div>
             </div>

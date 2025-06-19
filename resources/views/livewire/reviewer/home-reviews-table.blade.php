@@ -16,11 +16,14 @@
               <p class="text-gray-700 mb-4">Abstract: {{$review->paper->abstract}} </p>
               <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-4 text-sm text-gray-500">
+                   @if ($BlindReview == 0)
                   <span><i class="fas fa-user mr-1"></i> Dr. {{$review->reviewer->name}}</span>
-                  <span><i class="fas fa-tags mr-1"></i> {{$review->paper->keywords}}</span> 
+                  @else
+                  <span><i class="fas fa-user mr-1"></i>Anonymous Author</span>
+                  @endif                  <span><i class="fas fa-tags mr-1"></i> {{$review->paper->keywords}}</span> 
                 </div>
                 <div class="flex space-x-2">
-                  <a href="#" class="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-purple-700 transition-colors duration-200">
+                  <a href="{{route('reviewer.reviews.index')}}" class="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-purple-700 transition-colors duration-200">
                     Start Review
                   </a>
                   <a href="{{route('paper.print', $review->paper->file_path)}}"  target="_blank" class="border border-gray-300 text-gray-700 px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors duration-200">

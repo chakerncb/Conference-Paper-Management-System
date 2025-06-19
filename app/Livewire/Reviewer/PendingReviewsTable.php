@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Reviewer;
 
+use App\Models\ConferenceSetting;
 use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -23,6 +24,7 @@ class PendingReviewsTable extends Component
     public $selectedReviewId = null;
     public $score = '';
     public $comments = '';
+    public $BlindReview ;
 
     protected $queryString = [
         'search' => ['except' => ''],
@@ -160,9 +162,12 @@ class PendingReviewsTable extends Component
         $query->orderBy($this->sortField, $this->sortDirection);
         $reviews = $query->paginate($this->perPage);
 
+        $this->BlindReview = ConferenceSetting::get('enable_blind_review') == '1';
+
 
         return view('livewire.reviewer.pending-reviews-table' ,[
-            'reviews' => $reviews
+            'reviews' => $reviews,
+            'BlindReview' => $this->BlindReview,
         ]);
     }
 }

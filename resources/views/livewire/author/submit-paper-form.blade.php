@@ -171,7 +171,7 @@
                     </label>
                   </div>
                   <p class="text-sm text-gray-500">or drag and drop your PDF file here</p>
-                  <p class="text-xs text-gray-400">Maximum file size: 10MB</p>
+                  <p class="text-xs text-gray-400">Maximum file size: {{$MaxFileSize}}MB</p>
                 </div>
               </div>
               
@@ -184,6 +184,20 @@
                   </div>
                 </div>
               </div>
+              
+              <div wire:loading wire:target="file" class="mt-2">
+                <div class="flex items-center text-blue-600">
+                  <svg class="animate-spin -ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  <span>Uploading file...</span>
+                </div>
+              </div>
+              
+              @error('file')
+                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+              @enderror
             </div>
 
             <!-- Submission Guidelines Acknowledgment -->
@@ -215,6 +229,10 @@
                   </span>
                 </label>
               </div>
+              
+              @error('agreements.agr-1') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
+              @error('agreements.agr-2') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
+              @error('agreements.agr-3') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
             </div>
 
             <!-- Submit Button -->
@@ -232,3 +250,86 @@
           </form>
         </div>
       </div>
+
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const fileInput = document.getElementById('paper_file');
+            const fileInfo = document.getElementById('file-info');
+            const fileName = document.getElementById('file-name');
+            const fileSize = document.getElementById('file-size');
+            
+            fileInput.addEventListener('change', function() {
+                if (fileInput.files.length > 0) {
+                    const file = fileInput.files[0];
+                    fileInfo.classList.remove('hidden');
+                    fileName.textContent = file.name;
+                    
+                    // Format file size
+                    const size = file.size / 1024; // KB
+                    if (size < 1024) {
+                        fileSize.textContent = `(${size.toFixed(1)} KB)`;
+                    } else {
+                        fileSize.textContent = `(${(size/1024).toFixed(1)} MB)`;
+                    }
+                } else {
+                    fileInfo.classList.add('hidden');
+                }
+            });
+
+            // Support for drag and drop
+            const dropArea = document.querySelector('.border-dashed');
+            
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, preventDefaults, false);
+            });
+            
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropArea.addEventListener(eventName, highlight, false);
+            });
+            
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, unhighlight, false);
+            });
+            
+            function highlight() {
+                dropArea.classList.add('border-blue-400', 'bg-blue-50');
+            }
+            
+            function unhighlight() {
+                dropArea.classList.remove('border-blue-400', 'bg-blue-50');
+            }
+            
+            dropArea.addEventListener('drop', handleDrop, false);
+            
+            function handleDrop(e) {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                
+                if (files.length > 0) {
+                    fileInput.files = files;
+                    
+                    // Trigger change event manually for Livewire to pick up the file
+                    const event = new Event('change', { bubbles: true });
+                    fileInput.dispatchEvent(event);
+                    
+                    // Update file info display
+                    const file = files[0];
+                    fileInfo.classList.remove('hidden');
+                    fileName.textContent = file.name;
+                    
+                    // Format file size
+                    const size = file.size / 1024; // KB
+                    if (size < 1024) {
+                        fileSize.textContent = `(${size.toFixed(1)} KB)`;
+                    } else {
+                        fileSize.textContent = `(${(size/1024).toFixed(1)} MB)`;
+                    }
+                }
+            }
+        });
+      </script>

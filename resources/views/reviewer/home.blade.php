@@ -29,20 +29,12 @@
     <!-- Review Statistics -->
     <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
       <div class="bg-white rounded-lg shadow-md p-6 text-center">
-        <div class="text-3xl font-bold text-purple-600 mb-2">5</div>
+        <div class="text-3xl font-bold text-purple-600 mb-2">{{ $pendingReviews ?? 0 }}</div>
         <div class="text-gray-600">Pending Reviews</div>
       </div>
       <div class="bg-white rounded-lg shadow-md p-6 text-center">
-        <div class="text-3xl font-bold text-green-600 mb-2">12</div>
+        <div class="text-3xl font-bold text-green-600 mb-2">{{ $completedReviews ?? 0 }}</div>
         <div class="text-gray-600">Completed Reviews</div>
-      </div>
-      <div class="bg-white rounded-lg shadow-md p-6 text-center">
-        <div class="text-3xl font-bold text-blue-600 mb-2">3.5</div>
-        <div class="text-gray-600">Avg. Review Time (days)</div>
-      </div>
-      <div class="bg-white rounded-lg shadow-md p-6 text-center">
-        <div class="text-3xl font-bold text-orange-600 mb-2">8.9</div>
-        <div class="text-gray-600">Review Quality Score</div>
       </div>
     </div>
 
@@ -59,22 +51,33 @@
             Upcoming Deadlines
           </h3>
           <div class="space-y-4">
+            @if($deadlines['submission'])
             <div class="border-l-4 border-red-500 pl-4">
-              <div class="font-semibold text-gray-800">ML in Healthcare</div>
-              <div class="text-sm text-gray-600">Due: June 19, 2025</div>
+              <div class="font-semibold text-gray-800">Submission Deadline</div>
+              <div class="text-sm text-gray-600">Due: {{ $deadlines['submission'] }}</div>
             </div>
+            @endif
+
+            @if($deadlines['review'])
             <div class="border-l-4 border-yellow-500 pl-4">
-              <div class="font-semibold text-gray-800">Quantum Cryptography</div>
-              <div class="text-sm text-gray-600">Due: June 21, 2025</div>
+              <div class="font-semibold text-gray-800">Review Deadline</div>
+              <div class="text-sm text-gray-600">Due: {{ $deadlines['review'] }}</div>
             </div>
+            @endif
+
+            @if($deadlines['camera_ready'])
             <div class="border-l-4 border-green-500 pl-4">
-              <div class="font-semibold text-gray-800">Neural Networks NLP</div>
-              <div class="text-sm text-gray-600">Due: June 24, 2025</div>
+              <div class="font-semibold text-gray-800">Camera Ready Deadline</div>
+              <div class="text-sm text-gray-600">Due: {{ $deadlines['camera_ready'] }}</div>
             </div>
+            @endif
+
+            @if($deadlines['registration'])
             <div class="border-l-4 border-blue-500 pl-4">
-              <div class="font-semibold text-gray-800">Review Period Ends</div>
-              <div class="text-sm text-gray-600">August 30, 2025</div>
+              <div class="font-semibold text-gray-800">Registration Deadline</div>
+              <div class="text-sm text-gray-600">Due: {{ $deadlines['registration'] }}</div>
             </div>
+            @endif
           </div>
         </div>
 

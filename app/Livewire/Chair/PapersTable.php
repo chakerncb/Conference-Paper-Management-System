@@ -3,6 +3,7 @@
 namespace App\Livewire\Chair;
 
 use App\Mail\DecisionMail;
+use App\Models\ConferenceSetting;
 use App\Models\Paper;
 use App\Models\User;
 use App\Models\Review;
@@ -20,7 +21,7 @@ class PapersTable extends Component
     public $selectedReviewers = [];
     public $currentPaperId = null;
     public $perPage = 10;
-
+    public $reviewersNumber = 2;
     public $expandedAbstracts = [];
 
     public function render()
@@ -29,7 +30,7 @@ class PapersTable extends Component
         
         $reviewers = collect();
         if ($this->showFormForPaper) {
-            // Get current paper's assigned reviewers to exclude them from selection
+
             $currentPaper = Paper::find($this->showFormForPaper);
             $assignedReviewerIds = $currentPaper ? $currentPaper->reviews()->pluck('reviewer_id')->toArray() : [];
             
@@ -48,9 +49,12 @@ class PapersTable extends Component
                 ->paginate(5, ['*'], 'reviewersPage');
         }
 
+        $this->reviewersNumber = (int) ConferenceSetting::get('reviews_per_paper');
+
         return view('livewire.chair.papers-table', [
             'papers' => $papers,
-            'reviewers' => $reviewers
+            'reviewers' => $reviewers,
+            'reviewersNumber' => $this->reviewersNumber,
         ]);
     }
 
@@ -108,7 +112,7 @@ class PapersTable extends Component
     public function submitReviewers()
     {
         $this->validate([
-            'selectedReviewers' => 'required|array|min:2|max:2',
+            'selectedReviewers' => 'required|array|size:'.$this->reviewersNumber,
             'selectedReviewers.*' => 'exists:users,id',
         ]);
 

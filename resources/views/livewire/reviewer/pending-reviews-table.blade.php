@@ -107,7 +107,12 @@
               @endif
               <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-4 text-sm text-gray-500">
+                  <span><i class="fas fa-calendar-alt mr-1"></i> Assigned on {{ $review->created_at->format('F j, Y') }}</span>
+                   @if ($BlindReview == 0)
                   <span><i class="fas fa-user mr-1"></i> Dr. {{$review->reviewer->name}}</span>
+                  @else
+                  <span><i class="fas fa-user mr-1"></i>Anonymous Author</span>
+                  @endif
                   <span><i class="fas fa-tags mr-1"></i> {{$review->paper->keywords}}</span> 
                 </div>
                 <div class="flex space-x-2">
