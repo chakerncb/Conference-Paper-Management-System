@@ -473,6 +473,9 @@
                         
                         <h4 class="text-2xl font-semibold mb-6">Review Criteria</h4>
                         <p class="text-gray-600 mb-8">{{ $settings['review_criteria'] }}</p>
+
+                        <h4 class="text-2xl font-semibold mb-6">Submission Process</h4>
+                        <p class="text-gray-600 mb-8"> To submit a paper must login to the <b>AcademIQ</b> platform. If you do not have an account, please register first.</p>
                         
                         <div class="mt-10 text-center">
                             @if (Route::has('login'))
