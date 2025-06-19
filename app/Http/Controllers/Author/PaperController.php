@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Author;
 
 use App\Http\Controllers\Controller;
+use App\Models\ConferenceSetting;
 use Illuminate\Http\Request;
 
 class PaperController extends Controller
@@ -20,7 +21,14 @@ class PaperController extends Controller
      */
     public function create()
     {
-        return view('author.submitPaper');
+         $deadLines = [
+            'submission' => ConferenceSetting::get('submission_deadline', 'Not Set'),
+            'review' => ConferenceSetting::get('review_deadline', 'Not Set'),
+            'camera_ready' => ConferenceSetting::get('camera_ready_deadline', 'Not Set'),
+            'registration' => ConferenceSetting::get('registration_deadline', 'Not Set'),
+        ];
+
+        return view('author.submitPaper', compact('deadLines'));
     }
 
     /**

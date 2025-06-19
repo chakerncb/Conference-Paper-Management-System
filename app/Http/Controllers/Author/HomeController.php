@@ -32,6 +32,9 @@ class HomeController extends Controller
             'registration' => ConferenceSetting::get('registration_deadline', 'Not Set'),
         ];
 
-        return view('author.home' , compact('deadLines'));
+        $submissionGuidelines = ConferenceSetting::get('submission_guidelines');
+        $reviewCriteria = ConferenceSetting::get('review_criteria');
+
+        return view('author.home' , compact('deadLines' , 'submissionGuidelines', 'reviewCriteria'));
     }
 }

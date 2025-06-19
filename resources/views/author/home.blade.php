@@ -17,8 +17,8 @@
           <a href="{{route('paper.create')}}" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200 shadow-lg">
             Submit New Paper
           </a>
-          <a href="#" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors duration-200">
-            View Guidelines
+          <a href="{{route('paper.index')}}" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors duration-200">
+            View My Submissions
           </a>
         </div>
       </div>
@@ -37,7 +37,7 @@
             Quick Actions
           </h2>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <a href="#" class="group p-4 border border-gray-200 rounded-lg hover:border-blue-300 hover:shadow-md transition-all duration-200">
+            <a href="{{route('paper.create')}}" class="group p-4 border border-gray-200 rounded-lg hover:border-blue-300 hover:shadow-md transition-all duration-200">
               <div class="flex items-center">
                 <div class="bg-blue-100 p-3 rounded-lg group-hover:bg-blue-200 transition-colors duration-200">
                   <i class="fas fa-upload text-blue-600 text-xl"></i>
@@ -49,7 +49,7 @@
               </div>
             </a>
             
-            <a href="#" class="group p-4 border border-gray-200 rounded-lg hover:border-green-300 hover:shadow-md transition-all duration-200">
+            <a href="{{route('paper.index')}}" class="group p-4 border border-gray-200 rounded-lg hover:border-green-300 hover:shadow-md transition-all duration-200">
               <div class="flex items-center">
                 <div class="bg-green-100 p-3 rounded-lg group-hover:bg-green-200 transition-colors duration-200">
                   <i class="fas fa-file-alt text-green-600 text-xl"></i>
@@ -57,30 +57,6 @@
                 <div class="ml-4">
                   <h3 class="font-semibold text-gray-800">My Submissions</h3>
                   <p class="text-sm text-gray-600">Track your paper status</p>
-                </div>
-              </div>
-            </a>
-            
-            <a href="#" class="group p-4 border border-gray-200 rounded-lg hover:border-purple-300 hover:shadow-md transition-all duration-200">
-              <div class="flex items-center">
-                <div class="bg-purple-100 p-3 rounded-lg group-hover:bg-purple-200 transition-colors duration-200">
-                  <i class="fas fa-search text-purple-600 text-xl"></i>
-                </div>
-                <div class="ml-4">
-                  <h3 class="font-semibold text-gray-800">Review Papers</h3>
-                  <p class="text-sm text-gray-600">Review assigned papers</p>
-                </div>
-              </div>
-            </a>
-            
-            <a href="#" class="group p-4 border border-gray-200 rounded-lg hover:border-orange-300 hover:shadow-md transition-all duration-200">
-              <div class="flex items-center">
-                <div class="bg-orange-100 p-3 rounded-lg group-hover:bg-orange-200 transition-colors duration-200">
-                  <i class="fas fa-calendar text-orange-600 text-xl"></i>
-                </div>
-                <div class="ml-4">
-                  <h3 class="font-semibold text-gray-800">Important Dates</h3>
-                  <p class="text-sm text-gray-600">View conference timeline</p>
                 </div>
               </div>
             </a>
@@ -106,10 +82,6 @@
               <div class="font-semibold text-gray-800">Review Period Ends</div>
               <div class="text-sm text-gray-600">{{ $deadLines['review'] }}</div>
             </div>
-            {{-- <div class="border-l-4 border-green-500 pl-4">
-              <div class="font-semibold text-gray-800">Final Decision Date</div>
-              <div class="text-sm text-gray-600">{{ $deadLines['decision'] }}</div>
-            </div> --}}
             <div class="border-l-4 border-blue-500 pl-4">
               <div class="font-semibold text-gray-800">Camera Ready </div>
               <div class="text-sm text-gray-600">{{ $deadLines['camera_ready'] }}</div>
@@ -133,28 +105,12 @@
           <ul class="space-y-2 text-sm text-gray-600">
             <li class="flex items-start">
               <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
-              Papers must be 6-8 pages in length
+              <span> {{ $submissionGuidelines}} </span>
             </li>
             <li class="flex items-start">
               <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
-              Use IEEE conference template
+              <span>{{ $reviewCriteria}}</span>
             </li>
-            <li class="flex items-start">
-              <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
-              Submit in PDF format only
-            </li>
-            <li class="flex items-start">
-              <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
-              Include 3-5 keywords
-            </li>
-            <li class="flex items-start">
-              <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
-              Blind review process
-            </li>
-          </ul>
-          <a href="#" class="inline-block mt-4 text-blue-600 hover:text-blue-800 font-medium text-sm">
-            View full guidelines →
-          </a>
         </div>
 
         <!-- Contact Information -->

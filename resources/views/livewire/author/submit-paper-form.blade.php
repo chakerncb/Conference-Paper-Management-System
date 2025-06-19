@@ -197,7 +197,7 @@
                 <label class="flex items-start">
                   <input type="checkbox" name="guidelines_accepted" value="1" wire:model="agreements.agr-1" class="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" required>
                   <span class="ml-3 text-sm text-gray-700">
-                    I confirm that this paper follows the <a href="#" class="text-blue-600 hover:underline">IEEE conference template</a> and submission guidelines
+                    I confirm that this paper follows the <a href="{{route('paper.print' , 'IEEE-paper-format-template.docx')}}" class="text-blue-600 hover:underline" download>IEEE conference template</a> and submission guidelines
                   </span>
                 </label>
                 

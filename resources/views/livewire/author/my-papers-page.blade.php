@@ -132,6 +132,7 @@
                 </div>
               </div>
               
+
               <div class="mb-4">
                 <div class="flex justify-between text-sm text-gray-600 mb-1">
                   <span>Review Progress</span>
@@ -166,14 +167,11 @@
             </div>
             
             <div class="flex flex-col space-y-2 ml-6">
-              {{-- <a href="{{ route('paper.print', $paper->file_path) }}" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm font-medium">
-                <i class="fas fa-eye mr-1"></i> View Details
-              </a> --}}
               <a href="{{ route('paper.print', $paper->file_path) }}" target="_blank" class="text-green-600 hover:text-green-800 text-sm font-medium cursor-pointer">
                 <i class="fas fa-download mr-1"></i> Download PDF
               </a>
               @if($paper->status === 'Accepted' || $paper->status === 'Rejected')
-                <a class="text-purple-600 hover:text-purple-800 text-sm font-medium cursor-pointer">
+                <a wire:click="viewReviews({{ $paper->id }})" class="text-purple-600 hover:text-purple-800 text-sm font-medium cursor-pointer">
                   <i class="fas fa-comment mr-1"></i> View Reviews
                 </a>
               @else
@@ -233,6 +231,76 @@
     @if($papers->hasPages())
     <div class="mt-8">
       {{ $papers->links() }}
+    </div>
+    @endif
+
+    <!-- Reviews Modal -->
+    @if($showReviewsModal)
+    <div class="fixed inset-0 bg-gray-900 bg-opacity-50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
+            <div class="flex justify-between items-center border-b border-gray-200 px-6 py-4">
+                <h3 class="text-xl font-bold text-gray-900">Reviews for "{{ $selectedPaper->title }}"</h3>
+                <button wire:click="closeReviewsModal" class="text-gray-400 hover:text-gray-500">
+                    <i class="fas fa-times fa-lg"></i>
+                </button>
+            </div>
+            
+            <div class="overflow-y-auto p-6 max-h-[70vh]">
+                @if($selectedPaper->reviews->isEmpty())
+                    <div class="text-center p-6">
+                        <i class="fas fa-comment-slash text-4xl text-gray-300 mb-2"></i>
+                        <p class="text-gray-500">No reviews have been submitted yet.</p>
+                    </div>
+                @else
+                    <div class="mb-4 bg-blue-50 rounded-lg p-4">
+                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2 space-y-1 sm:space-y-0">
+                          <div class="font-medium">Average Score</div>
+                          <div class="text-lg font-bold">
+                            {{ number_format($selectedPaper->reviews->avg('score'), 1) }} / 10
+                          </div>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-3">
+                            <div class="h-3 rounded-full bg-blue-500" style="width: {{ ($selectedPaper->reviews->avg('score') / 10) * 100 }}%"></div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        @foreach($selectedPaper->reviews as $review)
+                            <div class="border border-gray-200 rounded-lg overflow-hidden">
+                                <div class="bg-gray-50 px-4 py-3 flex justify-between items-center">
+                                    <div class="flex items-center">
+                                        <span class="font-medium text-gray-800">Reviewer {{ $loop->iteration }}</span>
+                                        <!-- Anonymous review, we don't show reviewer name -->
+                                    </div>
+                                    <div class="flex items-center">
+                                        <div class="font-medium mr-2">Score:</div>
+                                        <div class="px-2 py-1 rounded text-white font-medium {{
+                                            $review->score >= 4.5 ? 'bg-green-600' : 
+                                            ($review->score >= 3.5 ? 'bg-green-500' : 
+                                            ($review->score >= 2.5 ? 'bg-yellow-500' : 'bg-red-500'))
+                                        }}">
+                                            {{ $review->score }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-4">
+                                    <div class="prose max-w-none">
+                                        <h4 class="text-lg font-medium mb-2">Comments:</h4>
+                                        <div class="whitespace-pre-line">{{ $review->comments }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
+            </div>
+            
+            <div class="border-t border-gray-200 px-6 py-4 flex justify-end">
+                <button wire:click="closeReviewsModal" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg">
+                    Close
+                </button>
+            </div>
+        </div>
     </div>
     @endif
 </div>

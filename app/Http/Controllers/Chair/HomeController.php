@@ -27,6 +27,20 @@ class HomeController extends Controller
         $underReviewPapers = Paper::where('status', 'Under Review')->count();
         $rejectedPapers = Paper::where('status', 'Rejected')->count(); 
 
+        $currentYear = date('Y');
+        $monthlyPapers = [];
+        $monthLabels = [];
+
+        for ($month = 1; $month <= 12; $month++) {
+            $monthName = date('F', mktime(0, 0, 0, $month, 1));
+            $monthLabels[] = $monthName;
+              $count = Paper::whereYear('created_at', $currentYear)
+                          ->whereMonth('created_at', $month)
+                          ->count();
+            
+            $monthlyPapers[] = $count;
+        }
+
         $deadLines = [
             'submission' => ConferenceSetting::get('submission_deadline', 'Not Set'),
             'review' => ConferenceSetting::get('review_deadline', 'Not Set'),
@@ -34,6 +48,14 @@ class HomeController extends Controller
             'registration' => ConferenceSetting::get('registration_deadline', 'Not Set'),
         ];
 
-        return view('chair.index' , compact('totalPapers', 'acceptedPapers', 'underReviewPapers' , 'rejectedPapers', 'deadLines'));
+        return view('chair.index', compact(
+            'totalPapers', 
+            'acceptedPapers', 
+            'underReviewPapers', 
+            'rejectedPapers', 
+            'deadLines',
+            'monthlyPapers',
+            'monthLabels'
+        ));
     }
 }

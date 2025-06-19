@@ -15,6 +15,8 @@ class MyPapersPage extends Component
     public $sortField = 'created_at';
     public $sortDirection = 'desc';
     public $perPage = 10;
+    public $selectedPaper = null;
+    public $showReviewsModal = false;
 
     protected $queryString = [
         'search' => ['except' => ''],
@@ -69,6 +71,18 @@ class MyPapersPage extends Component
     {
         $this->statusFilter = '';
         $this->resetPage();
+    }
+
+    public function viewReviews($paperId)
+    {
+        $this->selectedPaper = Paper::with(['reviews.reviewer'])->findOrFail($paperId);
+        $this->showReviewsModal = true;
+    }
+
+    public function closeReviewsModal()
+    {
+        $this->showReviewsModal = false;
+        $this->selectedPaper = null;
     }
 
     public function render()

@@ -1,9 +1,7 @@
 @extends('auth.layouts.app')
 
 @section('content')
-<!-- component -->
 <div class="flex h-screen">
-  <!-- Left Pane -->
   <div class="hidden lg:flex items-center justify-center flex-1 bg-white text-black">
     <div class="max-w-md text-center">
       <svg xmlns="http://www.w3.org/2000/svg" width="524.67004" height="531.39694" class="w-full" alt="https://undraw.co/illustrations" title="https://undraw.co/illustrations" viewBox="0 0 524.67004 531.39694" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -44,7 +42,6 @@
       </svg>
     </div>
   </div>
-  <!-- Right Pane -->
   <div class="w-full bg-gray-100 lg:w-1/2 flex items-center justify-center">
     <div class="max-w-md w-full p-6">
       <h1 class="text-3xl font-semibold mb-6 text-black text-center">Confirm Password</h1>

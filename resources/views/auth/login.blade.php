@@ -1,9 +1,7 @@
 @extends('auth.layouts.app')
 
 @section('content')
-<!-- component -->
 <div class="flex h-screen">
-  <!-- Left Pane -->
   <div class="hidden lg:flex items-center justify-center flex-1 bg-white text-black">
     <div class="max-w-md text-center">
       <svg xmlns="http://www.w3.org/2000/svg" width="524.67004" height="531.39694" class="w-full" alt="https://undraw.co/illustrations" title="https://undraw.co/illustrations" viewBox="0 0 524.67004 531.39694" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -76,7 +74,6 @@
       </svg>
     </div>
   </div>
-  <!-- Right Pane -->
   <div class="w-full bg-gray-100 lg:w-1/2 flex items-center justify-center">
     <div class="max-w-md w-full p-6">
       <h1 class="text-3xl font-semibold mb-6 text-black text-center">Sign Up</h1>
@@ -103,7 +100,6 @@
       </div>
       <form action="{{route('login')}}" method="POST" class="space-y-4">
         @csrf
-        <!-- Your form elements go here -->
         <div>
           <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
           <input type="text" id="email" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus class="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300 @error('email') is-invalid @enderror">

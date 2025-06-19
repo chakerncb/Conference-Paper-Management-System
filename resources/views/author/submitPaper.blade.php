@@ -33,16 +33,19 @@
           <div class="space-y-4">
             <div class="border-l-4 border-red-500 pl-4">
               <div class="font-semibold text-gray-800">Submission Deadline</div>
-              <div class="text-sm text-gray-600">July 15, 2025</div>
-              <div class="text-xs text-red-600">36 days remaining</div>
+              <div class="text-sm text-gray-600">{{ $deadLines['submission'] }}</div>
             </div>
             <div class="border-l-4 border-yellow-500 pl-4">
-              <div class="font-semibold text-gray-800">Review Period Ends</div>
-              <div class="text-sm text-gray-600">August 30, 2025</div>
+              <div class="font-semibold text-gray-800">Review Deadline</div>
+              <div class="text-sm text-gray-600">{{ $deadLines['review'] }}</div>
+            </div>
+            <div class="border-l-4 border-blue-500 pl-4">
+              <div class="font-semibold text-gray-800">Camera Ready Deadline</div>
+              <div class="text-sm text-gray-600">{{ $deadLines['camera_ready'] }}</div>
             </div>
             <div class="border-l-4 border-green-500 pl-4">
-              <div class="font-semibold text-gray-800">Notification Date</div>
-              <div class="text-sm text-gray-600">September 15, 2025</div>
+              <div class="font-semibold text-gray-800">Registration Deadline</div>
+              <div class="text-sm text-gray-600">{{ $deadLines['registration'] }}</div>
             </div>
           </div>
         </div>
@@ -81,7 +84,7 @@
           </ul>
           
           <div class="mt-4 pt-4 border-t border-gray-200">
-            <a href="#" class="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center">
+            <a href="{{route('paper.print' , 'IEEE-paper-format-template.docx')}}" class="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center" download>
               <i class="fas fa-download mr-2"></i>
               Download IEEE Template
             </a>

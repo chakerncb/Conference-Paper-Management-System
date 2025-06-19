@@ -2,12 +2,14 @@
 
 namespace App\Livewire\Chair;
 
+use App\Mail\DecisionMail;
 use App\Models\Paper;
 use App\Models\User;
 use App\Models\Review;
 use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Mail;
 
 class PapersTable extends Component
 {
@@ -196,6 +198,13 @@ class PapersTable extends Component
         if ($paper) {
             $paper->status = $decision;
             $paper->save();
+
+            Mail::to($paper->author->email)->send(new DecisionMail([
+                'paper_title' => $paper->title,
+                'decision' => $decision,
+                'author_name' => $paper->author->name,
+            ]));
+
             LivewireAlert::success()
                 ->text("Paper status updated to: {$decision}")
                 ->show();

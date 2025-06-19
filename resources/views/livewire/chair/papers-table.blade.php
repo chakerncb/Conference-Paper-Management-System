@@ -251,7 +251,6 @@
                             </td>
                         </tr>
 
-                        {{-- Inline Reviewer Form --}}
                         @if($showFormForPaper === $paper->id)
                             <tr class="bg-gray-50">
                                 <td colspan="6" class="px-4 py-6">
@@ -292,7 +291,6 @@
                                                 </div>
                                             </div>
                                         @else
-                                         {{-- final deicision  --}}
 
                                         <div class="mb-4 p-6 bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl border border-green-200 shadow-sm">
                                             <h4 class="text-lg font-semibold text-green-800 mb-4 flex items-center gap-3">
@@ -392,8 +390,6 @@
 
                                     @else
 
-
-                                        {{-- Search Box --}}
                                         <div class="mb-6">
                                             <label for="reviewer-search" class="block text-sm font-medium text-gray-700 mb-2">
                                                 Search Reviewers
@@ -414,7 +410,6 @@
                                             </div>
                                         </div>
 
-                                        {{-- Reviewers Table --}}
                                         @if($reviewers->isEmpty())
                                             <div class="text-center py-12">
                                                 <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -476,13 +471,11 @@
                                                 </div>
                                             </div>
 
-                                            {{-- Pagination --}}
                                             <div class="flex justify-center mb-4">
                                                 {{ $reviewers->links() }}
                                             </div>
                                         @endif
 
-                                        {{-- Selection Info --}}
                                         <div class="mb-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
                                             <div class="flex items-center justify-between">
                                                 <div class="flex items-center gap-2">
@@ -501,7 +494,6 @@
                                             </div>
                                         </div>
 
-                                        {{-- Buttons --}}
                                         <div class="flex flex-col sm:flex-row justify-end gap-3">
                                             <button 
                                                 type="button"
