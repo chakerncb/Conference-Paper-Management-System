@@ -50,20 +50,26 @@ class User extends Authenticatable
     }
 
 
-    /**
-     * Get the role associated with the user.
-     */
-
     public function role()
     {
         return $this->belongsTo(Roles::class);
     }
 
-    /**
-     * Get the reviews associated with the user.
-     */
     public function reviews()
     {
         return $this->hasMany(Review::class , 'reviewer_id');
+    }
+
+    public function isChair()
+    {
+        return $this->role->name === 'chair';
+    }
+    public function isAuthor()
+    {
+        return $this->role->name === 'author';
+    }
+    public function isReviewer()
+    {
+        return $this->role->name === 'reviewer';
     }
 }

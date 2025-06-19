@@ -18,6 +18,7 @@ Route::prefix('/chair')->middleware('auth.chair')->namespace('App\Http\Controlle
   Route::get('/', 'HomeController@index')->name('chair.dashboard');
   Route::get('/users', 'UsersController@index')->name('chair.users.index');	
   Route::get('papers' , 'PapersController@index')->name('chair.papers.index');
+  Route::get('settings', 'SettingsController@index')->name('chair.settings');
 });
 
 

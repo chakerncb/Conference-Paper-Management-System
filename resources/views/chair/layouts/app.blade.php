@@ -33,26 +33,44 @@
             <i class="fas fa-file-alt mr-2"></i>
             {{ config('app.name') }} - Chair Portal
           </div>
-        </div>        <div class="hidden md:flex space-x-8">
-          <a href="{{route('chair.dashboard')}}" class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200 {{ request()->routeIs('chair.dashboard') ? 'border-b-2 border-blue-600' : '' }}">Dashboard</a>
+        </div>        
+        
+        <div class="hidden md:flex space-x-8">          <a href="{{route('chair.dashboard')}}" class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200 {{ request()->routeIs('chair.dashboard') ? 'border-b-2 border-blue-600' : '' }}">Dashboard</a>
           <a href="{{route('chair.papers.index')}}" class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200 {{ request()->routeIs('chair.papers.*') ? 'border-b-2 border-blue-600' : '' }}">Papers</a>
           <a href="{{route('chair.users.index')}}" class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200 {{ request()->routeIs('chair.users.*') ? 'border-b-2 border-blue-600' : '' }}">Users</a>
-          <a href="#" class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200">Settings</a>
+          <a href="{{route('chair.settings')}}" class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200 {{ request()->routeIs('chair.settings') ? 'border-b-2 border-blue-600' : '' }}">Settings</a>
         </div>
+
         <div class="hidden md:flex items-center space-x-4">
           @auth
-            <span class="text-sm text-gray-600">Welcome, {{ Auth::user()->name }}</span>
-            <form method="POST" action="{{ route('logout') }}" class="inline">
-              @csrf
-              <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200">
-                Logout
+            <div class="relative">
+              <button id="userDropdown" class="flex items-center text-sm text-gray-600 hover:text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md px-3 py-2">
+                <span>{{ Auth::user()->name }}</span>
+                <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
               </button>
-            </form>
-          @else
-            <a href="{{ route('login') }}" class="text-gray-700 hover:text-blue-600 font-medium">Login</a>
-            <a href="{{ route('register') }}" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200">Register</a>
-          @endauth
-        </div>
+              
+            <div id="userDropdownMenu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+              <div class="px-4 py-2 text-sm text-gray-700 border-b">
+                {{ Auth::user()->name }}
+              </div>
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
+              <a href="{{route('chair.dashboard')}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard</a>
+              <form method="POST" action="{{ route('logout') }}" class="block">
+                @csrf
+                <button type="submit" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
+                  Logout
+                </button>
+              </form>
+                  </div>
+                </div>
+              @else
+                <a href="{{ route('login') }}" class="text-gray-700 hover:text-blue-600 font-medium">Login</a>
+                <a href="{{ route('register') }}" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200">Register</a>
+              @endauth
+          </div>
+
         <div class="md:hidden">
           <!-- Mobile menu button -->
           <button class="text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -76,6 +94,20 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+   <script>
+          document.getElementById('userDropdown').addEventListener('click', function() {
+            const menu = document.getElementById('userDropdownMenu');
+            menu.classList.toggle('hidden');
+          });
+          
+          document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('userDropdown');
+            const menu = document.getElementById('userDropdownMenu');
+            if (!dropdown.contains(event.target)) {
+              menu.classList.add('hidden');
+            }
+          });
+    </script> 
   @livewireScripts
 </div>
 </body>

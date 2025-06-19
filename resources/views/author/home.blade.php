@@ -87,44 +87,6 @@
           </div>
         </div>
 
-        <!-- Recent Activity -->
-        <div class="bg-white rounded-lg shadow-md p-6 mt-8">
-          <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-            <i class="fas fa-history text-blue-500 mr-3"></i>
-            Recent Activity
-          </h2>
-          <div class="space-y-4">
-            <div class="flex items-start space-x-4 p-4 bg-gray-50 rounded-lg">
-              <div class="bg-green-100 p-2 rounded-full">
-                <i class="fas fa-check text-green-600"></i>
-              </div>
-              <div class="flex-1">
-                <p class="font-medium text-gray-800">Paper "Machine Learning in Healthcare" was accepted</p>
-                <p class="text-sm text-gray-600">2 hours ago</p>
-              </div>
-            </div>
-            
-            <div class="flex items-start space-x-4 p-4 bg-gray-50 rounded-lg">
-              <div class="bg-blue-100 p-2 rounded-full">
-                <i class="fas fa-comment text-blue-600"></i>
-              </div>
-              <div class="flex-1">
-                <p class="font-medium text-gray-800">New review received for "AI Ethics Framework"</p>
-                <p class="text-sm text-gray-600">5 hours ago</p>
-              </div>
-            </div>
-            
-            <div class="flex items-start space-x-4 p-4 bg-gray-50 rounded-lg">
-              <div class="bg-yellow-100 p-2 rounded-full">
-                <i class="fas fa-upload text-yellow-600"></i>
-              </div>
-              <div class="flex-1">
-                <p class="font-medium text-gray-800">Paper "Quantum Computing Applications" submitted</p>
-                <p class="text-sm text-gray-600">1 day ago</p>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
 
       <!-- Sidebar -->
@@ -135,23 +97,30 @@
             <i class="fas fa-calendar-alt text-red-500 mr-3"></i>
             Important Dates
           </h3>
-          <div class="space-y-4">
+           <div class="space-y-4">
             <div class="border-l-4 border-red-500 pl-4">
-              <div class="font-semibold text-gray-800">Submission Deadline</div>
-              <div class="text-sm text-gray-600">July 15, 2025</div>
+              <div class="font-semibold text-gray-800">Paper Submission Deadline</div>
+              <div class="text-sm text-gray-600">{{ $deadLines['submission'] }}</div>
             </div>
             <div class="border-l-4 border-yellow-500 pl-4">
               <div class="font-semibold text-gray-800">Review Period Ends</div>
-              <div class="text-sm text-gray-600">August 30, 2025</div>
+              <div class="text-sm text-gray-600">{{ $deadLines['review'] }}</div>
             </div>
-            <div class="border-l-4 border-green-500 pl-4">
-              <div class="font-semibold text-gray-800">Notification Date</div>
-              <div class="text-sm text-gray-600">September 15, 2025</div>
+            {{-- <div class="border-l-4 border-green-500 pl-4">
+              <div class="font-semibold text-gray-800">Final Decision Date</div>
+              <div class="text-sm text-gray-600">{{ $deadLines['decision'] }}</div>
+            </div> --}}
+            <div class="border-l-4 border-blue-500 pl-4">
+              <div class="font-semibold text-gray-800">Camera Ready </div>
+              <div class="text-sm text-gray-600">{{ $deadLines['camera_ready'] }}</div>
             </div>
             <div class="border-l-4 border-blue-500 pl-4">
-              <div class="font-semibold text-gray-800">Conference Date</div>
-              <div class="text-sm text-gray-600">November 10-12, 2025</div>
+              <div class="font-semibold text-gray-800">Registration Deadline </div>
+              <div class="text-sm text-gray-600">{{ $deadLines['registration'] }}</div>
             </div>
+
+
+
           </div>
         </div>
 

@@ -24,29 +24,26 @@
 
   <!-- Main Content -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-
-    <!-- Conference Statistics -->
     <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
       <div class="bg-white rounded-lg shadow-md p-6 text-center">
-        <div class="text-3xl font-bold text-blue-600 mb-2">{{ $totalPapers ?? 24 }}</div>
+        <div class="text-3xl font-bold text-blue-600 mb-2">{{ $totalPapers ?? '0' }}</div>
         <div class="text-gray-600">Total Papers</div>
       </div>
       <div class="bg-white rounded-lg shadow-md p-6 text-center">
-        <div class="text-3xl font-bold text-green-600 mb-2">{{ $acceptedPapers ?? 8 }}</div>
+        <div class="text-3xl font-bold text-green-600 mb-2">{{ $acceptedPapers ?? '0' }}</div>
         <div class="text-gray-600">Accepted Papers</div>
       </div>
       <div class="bg-white rounded-lg shadow-md p-6 text-center">
-        <div class="text-3xl font-bold text-orange-600 mb-2">{{ $underReviewPapers ?? 12 }}</div>
-        <div class="text-gray-600">Under Review</div>
+        <div class="text-3xl font-bold text-red-600 mb-2">{{ $rejectedPapers ?? '0' }}</div>
+        <div class="text-gray-600">Rejected Papers</div>
       </div>
       <div class="bg-white rounded-lg shadow-md p-6 text-center">
-        <div class="text-3xl font-bold text-purple-600 mb-2">{{ $totalReviewers ?? 18 }}</div>
-        <div class="text-gray-600">Active Reviewers</div>
+        <div class="text-3xl font-bold text-orange-600 mb-2">{{ $underReviewPapers ?? '0' }}</div>
+        <div class="text-gray-600">Under Review</div>
       </div>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-      <!-- Quick Actions -->
       <div class="lg:col-span-2">
         <div class="bg-white rounded-lg shadow-md p-6">
           <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
@@ -155,20 +152,27 @@
           <div class="space-y-4">
             <div class="border-l-4 border-red-500 pl-4">
               <div class="font-semibold text-gray-800">Paper Submission Deadline</div>
-              <div class="text-sm text-gray-600">June 30, 2025</div>
+              <div class="text-sm text-gray-600">{{ $deadLines['submission'] }}</div>
             </div>
             <div class="border-l-4 border-yellow-500 pl-4">
               <div class="font-semibold text-gray-800">Review Period Ends</div>
-              <div class="text-sm text-gray-600">August 30, 2025</div>
+              <div class="text-sm text-gray-600">{{ $deadLines['review'] }}</div>
             </div>
-            <div class="border-l-4 border-green-500 pl-4">
+            {{-- <div class="border-l-4 border-green-500 pl-4">
               <div class="font-semibold text-gray-800">Final Decision Date</div>
-              <div class="text-sm text-gray-600">September 15, 2025</div>
+              <div class="text-sm text-gray-600">{{ $deadLines['decision'] }}</div>
+            </div> --}}
+            <div class="border-l-4 border-blue-500 pl-4">
+              <div class="font-semibold text-gray-800">Camera Ready </div>
+              <div class="text-sm text-gray-600">{{ $deadLines['camera_ready'] }}</div>
             </div>
             <div class="border-l-4 border-blue-500 pl-4">
-              <div class="font-semibold text-gray-800">Conference Date</div>
-              <div class="text-sm text-gray-600">November 10-12, 2025</div>
+              <div class="font-semibold text-gray-800">Registration Deadline </div>
+              <div class="text-sm text-gray-600">{{ $deadLines['registration'] }}</div>
             </div>
+
+
+
           </div>
         </div>
 

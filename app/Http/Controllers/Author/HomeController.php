@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Author;
 
 use App\Http\Controllers\Controller;
+use App\Models\ConferenceSetting;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -24,6 +25,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('author.home');
+         $deadLines = [
+            'submission' => ConferenceSetting::get('submission_deadline', 'Not Set'),
+            'review' => ConferenceSetting::get('review_deadline', 'Not Set'),
+            'camera_ready' => ConferenceSetting::get('camera_ready_deadline', 'Not Set'),
+            'registration' => ConferenceSetting::get('registration_deadline', 'Not Set'),
+        ];
+
+        return view('author.home' , compact('deadLines'));
     }
 }
