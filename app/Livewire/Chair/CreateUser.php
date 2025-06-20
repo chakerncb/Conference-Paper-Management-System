@@ -127,12 +127,22 @@ class CreateUser extends Component
                 $user->password = Hash::make($password); 
                 $user->save();
 
+                try {
+
                 Mail::to($this->email)->send(new NewUserEmail([
                     'name' => $this->name,
                     'last_name' => $this->last_name,
                     'email' => $this->email,
                     'password' => $password, 
                 ]));
+
+                } catch (\Exception $e) {
+                    LivewireAlert::error()
+                        ->title('Email Error!')
+                        ->text('Failed to send email. Please check your email configuration.')
+                        ->show();
+                    return;
+                }
 
                 LivewireAlert::success()
                     ->title('Success!')
