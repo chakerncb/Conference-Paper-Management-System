@@ -32,8 +32,8 @@ The Conference Paper Management System streamlines the entire academic conferenc
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/yourusername/Conference_Paper_Management_System.git
-   cd Conference_Paper_Management_System
+   git clone https://github.com/chakerncb/Conference-Paper-Management-System.git
+   cd Conference-Paper-Management-System
    ```
 
 2. **Install PHP dependencies**

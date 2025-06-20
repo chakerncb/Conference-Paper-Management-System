@@ -16,7 +16,9 @@ class ChairSedder extends Seeder
     {
     User::create([
         'name' => 'Conference Chair',
-        'email' => 'chair@conference.com',
+        'last_name' => 'Admin',
+        'email' => 'chair@gmail.com',
+        'phone' => '1234567890',
         'password' => Hash::make('11111111'),
         'role_id' => 1,
     ]);

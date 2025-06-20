@@ -15,16 +15,19 @@ class RolesSeeder extends Seeder
     {
         //
         Roles::create([
+            'id' => 1,
             'name' => 'chair',
             'description' => 'System administrator with full access'
         ]);
         
         Roles::create([
+            'id' => 2,
             'name' => 'reviewer',
             'description' => 'Paper reviewer'
         ]);
         
         Roles::create([
+            'id' => 3,
             'name' => 'author',
             'description' => 'Paper author'
         ]);

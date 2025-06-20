@@ -18,7 +18,7 @@ class ConferenceSettingsSeeder extends Seeder
             ['key' => 'conference_name', 'value' => 'International Conference on Computer Science', 'type' => 'text', 'group' => 'general'],
             ['key' => 'conference_acronym', 'value' => 'ICCS', 'type' => 'text', 'group' => 'general'],
             ['key' => 'conference_year', 'value' => '2025', 'type' => 'number', 'group' => 'general'],
-            ['key' => 'conference_location', 'value' => 'University Campus', 'type' => 'text', 'group' => 'general'],
+            ['key' => 'conference_location', 'value' => 'University 8 Mai 1945 Guelma', 'type' => 'text', 'group' => 'general'],
             ['key' => 'conference_website', 'value' => 'https://conference.example.com', 'type' => 'text', 'group' => 'general'],
             
             // Deadlines
