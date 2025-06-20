@@ -76,14 +76,14 @@ The Conference Paper Management System streamlines the entire academic conferenc
    - In this example, I use MailHog for local development. Make sure to have it running.
 
    ```env
-  MAIL_MAILER=smtp
-  MAIL_HOST=localhost
-  MAIL_PORT=1025
-  MAIL_USERNAME=null
-  MAIL_PASSWORD=null
-  MAIL_ENCRYPTION=null
-  MAIL_FROM_ADDRESS="noreply@conference.org"
-  MAIL_FROM_NAME="${APP_NAME}"
+   MAIL_MAILER=smtp
+   MAIL_HOST=localhost
+   MAIL_PORT=1025
+   MAIL_USERNAME=null
+   MAIL_PASSWORD=null
+   MAIL_ENCRYPTION=null
+   MAIL_FROM_ADDRESS="noreply@conference.org"
+   MAIL_FROM_NAME="${APP_NAME}"
    ```
 
 6. **Run migrations and seeders**
